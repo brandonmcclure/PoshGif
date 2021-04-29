@@ -1,18 +1,18 @@
 function Invoke-Giffer{
+	param($Path)
 	Import-Module FC_Log
 
 $frameDupCounter = 7
-$frames = Get-ChildItem $PSScriptRoot | where {$_.Extension -eq '.jpg'}
+$frames = Get-ChildItem $Path | where {$_.Extension -eq '.jpg'}
 $frameCount = $frames | Measure-Object | Select-Object -ExpandProperty  Count
 if($frameCount -eq 0){
     Write-Log "I did not load any files!" Error -ErrorAction Stop
 }
-$filename = "$PSScriptRoot\alldone.gif"
+$filename = "$Path\alldone.gif"
 
 Add-Type -AssemblyName PresentationCore
 add-type -AssemblyName system.drawing
 
-#$fileStream = New-Object System.IO.FileStream $filename, 'Create'
 try{
     $gif = New-Object -TypeName System.Windows.Media.Imaging.GifBitmapEncoder
 
@@ -31,7 +31,7 @@ try{
         $hbmp = $bmp = $null
 
     }
-    Write-Log "Setting up if to loop"
+    Write-Log "Setting it up to loop"
     $MemoryStream = New-Object System.IO.MemoryStream
     $gif.save($MemoryStream)
     $Bytes = $MemoryStream.ToArray()
@@ -43,12 +43,9 @@ try{
 
     Write-Log "Saving gif"
     [System.IO.File]::WriteAllBytes($filename, $newBytes.ToArray());
-    #$gif.Save($fileStream)
 }
 catch{throw}
 finally{
-    #$fileStream.Flush()
-    #$fileStream.Dispose()
     $MemoryStream.Flush()
     $MemoryStream.Dispose()
 }  

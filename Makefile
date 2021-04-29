@@ -12,4 +12,5 @@ build:
 %:
 	./Build-Modules.ps1 -moduleName @('$*.psm1')
 
-
+local_deploy:
+	Copy-Item ./PoshGif "$$($$env:USERPROFILE)\Documents\PowerShell\Modules" -force -Recurse
