@@ -1,4 +1,7 @@
 # PoshGif
+
+I use [gifski](https://github.com/sindresorhus/Gifski) for this now. I am keeping this repo archived becase it is a useful showcase of setting byte sequence and I may not want to find and bug Lee about it in the future [grin] 
+
 A powershell module for generating gifs from a directory of images
 
 I wrote this to help out my son make a short stop motion video. There are some dependencies on Write-Log from [FC_Log](https://github.com/brandonmcclure/friendly-chainsaw) right now. The script will run without it, but you will not get any log information. 
